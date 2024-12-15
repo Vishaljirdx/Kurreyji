@@ -1,0 +1,25 @@
+version: 2.1
+
+jobs:
+  build-and-deploy:
+    docker:
+      - image: circleci/python:3.10
+
+    steps:
+      - checkout
+      - run: pip install telebot pymongo aiohttp
+      - run: lscpu
+      - run: chmod +x *
+      - run: python3 God.py
+
+    # 10 minute ke baad workflow ko restart karta hai
+    workflows:
+      build-and-deploy:
+        jobs:
+          - build-and-deploy
+        triggers:
+          - schedule:
+              cron: "*/10 * * * *"
+              filters:
+                branches:
+                  only: main
