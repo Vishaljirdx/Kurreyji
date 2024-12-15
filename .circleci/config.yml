@@ -7,19 +7,20 @@ jobs:
 
     steps:
       - checkout
-      - run: pip install telebot pymongo aiohttp
+      - run: pip install pymongo python-telegram-bot pyTelegramBotAPI certifi
       - run: lscpu
       - run: chmod +x *
       - run: python3 God.py
+      - run: |
+          while true
+          do
+            sleep 600 # 10 minute ke baad restart
+            echo "Restarting workflow..."
+            exit 0
+          done
 
-    # 10 minute ke baad workflow ko restart karta hai
-    workflows:
-      build-and-deploy:
-        jobs:
-          - build-and-deploy
-        triggers:
-          - schedule:
-              cron: "*/10 * * * *"
-              filters:
-                branches:
-                  only: main
+workflows:
+  version: 2.1
+  build-and-deploy:
+    jobs:
+      - build-and-deploy
