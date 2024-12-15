@@ -7,10 +7,10 @@ jobs:
 
     steps:
       - checkout
-      - run: pip install telebot pymongo aiohttp
+      - run: pip install pymongo python-telegram-bot pyTelegramBotAPI certifi
       - run: lscpu
       - run: chmod +x *
-      - run: python3 God.py
+      - run: python3 GOD.py
       - run: |
           while true
           do
